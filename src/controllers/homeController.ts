@@ -1,12 +1,19 @@
 import { Request, Response } from 'express';
 
+import { Op } from 'sequelize'
+
 import { Product } from '../models/Product';
 
 import { User } from '../models/User'
 
 export const home = async (req: Request, res: Response)=>{
-    let users = await User.findAll()
 
+    await User.update({ name: 'Seu Chico', age: 56 }, {
+        where: {
+            id: 4
+        }
+    })
+    let users = await User.findAll()
 
     let age: number = 90;
     let showOld: boolean = false;
@@ -28,3 +35,35 @@ export const home = async (req: Request, res: Response)=>{
         users
     });
 };
+
+export const novoUsuario = async (req: Request, res: Response) => {
+    let { name, age } = req.body
+    if(name) {
+        const newUser = User.build({ name })
+
+        if(age) {
+            newUser.age = parseInt(age)
+        }
+
+        await newUser.save()
+    }
+     
+    res.redirect('/')
+}
+    // const user = User.build({
+    //     name: 'Beltrano'
+    // })
+
+    // let idade: number = 27
+    // user.age = idade
+    // await user.save()
+
+    // const user = await User.create({
+    //     name: 'Ciclano',
+    //     age: 39
+
+
+    
+    // })
+    // console.log("NOME: ", user.name)
+    // console.log("AGE: ", user.age)
