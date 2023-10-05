@@ -34,7 +34,7 @@ export const idadeAction = (req: Request, res: Response) => {
 
 export const addIdade = async (req: Request, res: Response) => {
     let id: string = req.params.id
-    let result = await User.findAll({where: { id }})
+    let result  = await User.findAll({ where: { id } })
     if(result.length > 0) {
         let usuario = result[0]
         usuario.age++

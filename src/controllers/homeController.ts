@@ -8,25 +8,6 @@ import { User } from '../models/User'
 
 export const home = async (req: Request, res: Response)=>{
     
-    const [ usuario, created ] = await User.findOrCreate({
-        where: { name: 'Willian' },
-        defaults: {
-            name: 'Willian',
-            age: 80
-        }
-    })
-
-    if(created) {
-        console.log("Usuario criado com sucesso")
-    } else {
-        console.log("Achamos o usuario")
-    }
-    console.log("NOME", usuario.name)
-
-    console.log("USUARIO", usuario)
-    console.log("CREATED", created)
-
-
     let users = await User.findAll()
 
     let age: number = 90;
